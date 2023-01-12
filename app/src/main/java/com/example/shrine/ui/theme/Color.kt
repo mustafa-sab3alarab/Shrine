@@ -12,7 +12,6 @@ val ShrinePink50 = Color(0xFFFEEAE6)
 val ShrinePink25 = Color(0xFFFFFBFA)
 val ShrineRed700 = Color(0xFFB00020)
 val ShrineScrim = Color(0xFF1A7D3636)
-val ShrineGray200 = Color(0xFFE5E7EB)
 
 
 internal val LightColorPalette = lightColors(
@@ -20,11 +19,11 @@ internal val LightColorPalette = lightColors(
     primaryVariant = ShrinePink200,
     onPrimary = ShrinePink900,
     onSecondary = ShrinePink900,
-    secondary = ShrinePink100,
-    surface = Color.White,
+    secondary = ShrinePink50,
+    surface = ShrinePink25,
     onSurface = ShrinePink900,
     onBackground = ShrinePink900,
-    background = ShrineGray200,
+    background = ShrinePink100,
     onError = Color.White,
     error = ShrineRed700
 )
@@ -35,11 +34,11 @@ internal val DarkColorPalette = darkColors(
     primaryVariant = ShrinePink200,
     onPrimary = ShrinePink900,
     onSecondary = ShrinePink900,
-    secondary = ShrinePink100,
-    surface = Color.White,
+    secondary = ShrinePink50,
+    surface = ShrinePink25,
     onSurface = ShrinePink900,
     onBackground = ShrinePink900,
-    background = ShrineGray200,
+    background = ShrinePink100,
     onError = Color.White,
     error = ShrineRed700
 )

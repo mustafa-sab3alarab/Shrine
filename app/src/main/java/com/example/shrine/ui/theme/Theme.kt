@@ -1,15 +1,12 @@
 package com.example.shrine.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun ShrineTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
@@ -31,7 +28,12 @@ fun ShrineTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable
 @Composable
 private fun ThemeTest() {
     ShrineTheme {
-        TypographyTest()
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+            Button(onClick = { }) {
+                Text(text = "This is a button".uppercase())
+            }
+        }
+
     }
 }
 

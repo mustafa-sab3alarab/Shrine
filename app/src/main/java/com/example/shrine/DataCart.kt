@@ -5,6 +5,7 @@ data class CartDataItem(
     val title: String,
     val price: Int,
     val vendor: Vendor,
+    val category: Category,
     val photoResId: Int
 )
 
@@ -16,9 +17,16 @@ enum class Vendor {
     Squiggle
 }
 
+enum class Category {
+    All,
+    Accessories,
+    Clothing,
+    Home
+}
+
 
 val SampleItems = listOf(
-    ItemData(
+    CartDataItem(
         id = 0,
         title = "Vagabond sack",
         price = 120,
@@ -26,7 +34,7 @@ val SampleItems = listOf(
         category = Category.Accessories,
         photoResId = R.drawable.photo_0
     ),
-    ItemData(
+    CartDataItem(
         id = 1,
         title = "Stella sunglasses",
         price = 58,
@@ -34,7 +42,7 @@ val SampleItems = listOf(
         category = Category.Accessories,
         photoResId = R.drawable.photo_1
     ),
-    ItemData(
+    CartDataItem(
         id = 2,
         title = "Whitney belt",
         price = 35,
@@ -42,7 +50,7 @@ val SampleItems = listOf(
         category = Category.Accessories,
         photoResId = R.drawable.photo_2
     ),
-    ItemData(
+    CartDataItem(
         id = 3,
         title = "Garden stand",
         price = 98,
@@ -50,7 +58,7 @@ val SampleItems = listOf(
         category = Category.Accessories,
         photoResId = R.drawable.photo_3
     ),
-    ItemData(
+    CartDataItem(
         id = 4,
         title = "Strut earrings",
         price = 34,
@@ -58,7 +66,7 @@ val SampleItems = listOf(
         category = Category.Accessories,
         photoResId = R.drawable.photo_4
     ),
-    ItemData(
+    CartDataItem(
         id = 5,
         title = "Varsity socks",
         price = 12,
@@ -66,7 +74,7 @@ val SampleItems = listOf(
         category = Category.Accessories,
         photoResId = R.drawable.photo_5
     ),
-    ItemData(
+    CartDataItem(
         id = 6,
         title = "Weave key ring",
         price = 16,
@@ -74,7 +82,7 @@ val SampleItems = listOf(
         category = Category.Accessories,
         photoResId = R.drawable.photo_6
     ),
-    ItemData(
+    CartDataItem(
         id = 7,
         title = "Gatsby hat",
         price = 40,
@@ -82,7 +90,7 @@ val SampleItems = listOf(
         category = Category.Accessories,
         photoResId = R.drawable.photo_7
     ),
-    ItemData(
+    CartDataItem(
         id = 8,
         title = "Shrug bag",
         price = 198,
@@ -90,7 +98,7 @@ val SampleItems = listOf(
         category = Category.Accessories,
         photoResId = R.drawable.photo_8
     ),
-    ItemData(
+    CartDataItem(
         id = 9,
         title = "Gilt desk trio",
         price = 58,
@@ -98,11 +106,12 @@ val SampleItems = listOf(
         category = Category.Home,
         photoResId = R.drawable.photo_9
     ),
-    ItemData(
+    CartDataItem(
         id = 10,
         title = "Copper wire rack",
         price = 18,
         vendor = Vendor.Alphi,
         category = Category.Home,
         photoResId = R.drawable.photo_10
-    ))
+    )
+)
