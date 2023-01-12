@@ -1,44 +1,65 @@
 package com.example.shrine.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-
-private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
-)
-
-private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
-)
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun ShrineTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
+    val ShrineColors = if (darkTheme) {
         DarkColorPalette
     } else {
         LightColorPalette
     }
 
     MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
+        colors = ShrineColors,
+        typography = ShrineTypography,
+        shapes = ShrineShapes,
         content = content
     )
 }
+
+@Preview(name = "Theme Test", showSystemUi = true, showBackground = true)
+@Composable
+private fun ThemeTest() {
+    ShrineTheme {
+        TypographyTest()
+    }
+}
+
+
+@Preview(name = "Typography Test", showSystemUi = true, showBackground = true)
+@Composable
+private fun TypographyTest() {
+    Column {
+        Text(
+            text = "H1 , Rubik",
+            style = MaterialTheme.typography.h1
+        )
+        Text(
+            text = "H2 , Rubik",
+            style = MaterialTheme.typography.h2
+        )
+        Text(
+            text = "H3 , Rubik",
+            style = MaterialTheme.typography.h3
+        )
+        Text(
+            text = "Body 1 , Rubik",
+            style = MaterialTheme.typography.body1
+        )
+        Text(
+            text = "Button , Rubik",
+            style = MaterialTheme.typography.button
+        )
+    }
+}
+
