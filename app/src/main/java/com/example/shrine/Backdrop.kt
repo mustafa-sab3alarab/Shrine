@@ -1,6 +1,7 @@
 package com.example.shrine
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -65,14 +66,20 @@ fun BackDrop() {
         frontLayerShape = MaterialTheme.shapes.large,
         backLayerContent = {
             BackDropLayer(
-                onMenuItemSelect = { menuSelection = it }
+                activeMenuItem = menuSelection,
+                onMenuItemSelect = { index ->
+                    menuSelection = index
+                    scope.launch {
+                        backdropScaffoldState.conceal()
+                    }
+                }
             )
         }
     )
 }
 
 @Composable
-private fun BackDropLayer(onMenuItemSelect: (index: Int) -> Unit) {
+private fun BackDropLayer(activeMenuItem: Int, onMenuItemSelect: (index: Int) -> Unit) {
     Column(
         Modifier
             .padding(32.dp)
@@ -83,7 +90,7 @@ private fun BackDropLayer(onMenuItemSelect: (index: Int) -> Unit) {
     ) {
 
         menuData.forEachIndexed { index, item ->
-            MenuItems(index, item) {
+            MenuItems(index = index, text = item, activeMenu = activeMenuItem) {
                 onMenuItemSelect(index)
             }
         }
@@ -94,7 +101,12 @@ private fun BackDropLayer(onMenuItemSelect: (index: Int) -> Unit) {
                 .width(56.dp),
             color = MaterialTheme.colors.onBackground
         )
-        MenuItems(text = "My Account", modifier = Modifier.alpha(0.4f)) {
+
+        MenuItems(
+            text = "My Account",
+            modifier = Modifier.alpha(0.4f),
+            activeMenu = activeMenuItem
+        ) {
             Log.d("BackDropLayer", "MenuItem: ${menuData.size}")
         }
     }
@@ -104,15 +116,26 @@ private fun BackDropLayer(onMenuItemSelect: (index: Int) -> Unit) {
 fun MenuItems(
     index: Int = -1,
     text: String = "Menu Item",
+    activeMenu: Int,
     modifier: Modifier = Modifier,
     onClick: (index: Int) -> Unit
 ) {
-    Text(
-        modifier = modifier.clickable {
-            onClick(index)
-        },
-        text = text.uppercase(), style = MaterialTheme.typography.subtitle1
-    )
+    Box(modifier = Modifier.height(20.dp), contentAlignment = Alignment.Center) {
+        if (activeMenu == index) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_tab_indicator),
+                contentDescription = "tab indicator"
+            )
+        }
+
+        Text(
+            modifier = modifier.clickable {
+                onClick(index)
+            },
+            text = text.uppercase(), style = MaterialTheme.typography.subtitle1
+        )
+    }
+
 }
 
 @ExperimentalMaterialApi
