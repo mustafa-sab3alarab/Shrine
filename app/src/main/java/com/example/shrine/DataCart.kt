@@ -25,7 +25,7 @@ enum class Category {
 }
 
 
-val SampleItems = listOf(
+val SampleItems = mutableListOf(
     CartDataItem(
         id = 0,
         title = "Vagabond sack",

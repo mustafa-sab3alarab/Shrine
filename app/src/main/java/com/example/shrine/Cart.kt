@@ -53,7 +53,7 @@ fun Cart() {
                 onClick = { },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(horizontal = 16.dp, vertical = 24.dp)
             ) {
                 Icon(
                     imageVector = Icons.Outlined.AddShoppingCart,

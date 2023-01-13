@@ -1,5 +1,6 @@
 package com.example.shrine
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -21,7 +22,9 @@ fun CartItem(item: CartDataItem) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    Log.i("cart", "CartItem: ${item.id}")
+                },
                 Modifier.padding(horizontal = 4.dp)
             ) {
                 Icon(
