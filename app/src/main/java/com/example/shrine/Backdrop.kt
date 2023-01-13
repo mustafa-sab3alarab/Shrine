@@ -2,12 +2,12 @@ package com.example.shrine
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -19,6 +19,16 @@ import com.example.shrine.ui.theme.ShrineTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+private val menuData = listOf(
+    "Featured",
+    "Apartment",
+    "Accessories",
+    "Shoes",
+    "Tops",
+    "Bottoms",
+    "Dresses"
+)
+
 @ExperimentalMaterialApi
 @Composable
 fun BackDrop() {
@@ -26,7 +36,11 @@ fun BackDrop() {
     val scope = rememberCoroutineScope()
 
     val backdropScaffoldState =
-        rememberBackdropScaffoldState(BackdropValue.Revealed)
+        rememberBackdropScaffoldState(BackdropValue.Concealed)
+
+    var menuSelection by remember {
+        mutableStateOf(0)
+    }
 
     BackdropScaffold(
         appBar = {
@@ -42,42 +56,61 @@ fun BackDrop() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Hello", style = MaterialTheme.typography.body1)
+                Text(
+                    text = "This is the front layer to ${menuData[menuSelection]}",
+                    style = MaterialTheme.typography.body1
+                )
             }
         },
         frontLayerShape = MaterialTheme.shapes.large,
         backLayerContent = {
-            Column(
-                Modifier
-                    .padding(32.dp)
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colors.primary),
-                verticalArrangement = Arrangement.spacedBy(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                MenuItems("Featured")
-                MenuItems("Apartment")
-                MenuItems("Accessories")
-                MenuItems("Shoes")
-                MenuItems("Tops")
-                MenuItems("Bottoms")
-                MenuItems("Dresses")
-                Divider(
-                    modifier = Modifier
-                        .height(1.dp)
-                        .width(56.dp),
-                    color = MaterialTheme.colors.onBackground
-                )
-                MenuItems("My Account", modifier = Modifier.alpha(0.4f))
-            }
+            BackDropLayer(
+                onMenuItemSelect = { menuSelection = it }
+            )
         }
     )
 }
 
 @Composable
-fun MenuItems(text: String = "Menu Item", modifier: Modifier = Modifier) {
+private fun BackDropLayer(onMenuItemSelect: (index: Int) -> Unit) {
+    Column(
+        Modifier
+            .padding(32.dp)
+            .fillMaxWidth()
+            .background(MaterialTheme.colors.primary),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        menuData.forEachIndexed { index, item ->
+            MenuItems(index, item) {
+                onMenuItemSelect(index)
+            }
+        }
+
+        Divider(
+            modifier = Modifier
+                .height(1.dp)
+                .width(56.dp),
+            color = MaterialTheme.colors.onBackground
+        )
+        MenuItems(text = "My Account", modifier = Modifier.alpha(0.4f)) {
+            Log.d("BackDropLayer", "MenuItem: ${menuData.size}")
+        }
+    }
+}
+
+@Composable
+fun MenuItems(
+    index: Int = -1,
+    text: String = "Menu Item",
+    modifier: Modifier = Modifier,
+    onClick: (index: Int) -> Unit
+) {
     Text(
-        modifier = modifier,
+        modifier = modifier.clickable {
+            onClick(index)
+        },
         text = text.uppercase(), style = MaterialTheme.typography.subtitle1
     )
 }
