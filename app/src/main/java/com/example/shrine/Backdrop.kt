@@ -2,7 +2,6 @@ package com.example.shrine
 
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -11,13 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.shrine.ui.theme.ShrineTheme
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
@@ -27,7 +26,7 @@ fun BackDrop() {
     val scope = rememberCoroutineScope()
 
     val backdropScaffoldState =
-        rememberBackdropScaffoldState(BackdropValue.Concealed)
+        rememberBackdropScaffoldState(BackdropValue.Revealed)
 
     BackdropScaffold(
         appBar = {
@@ -51,13 +50,35 @@ fun BackDrop() {
             Column(
                 Modifier
                     .padding(32.dp)
+                    .fillMaxWidth()
                     .background(MaterialTheme.colors.primary),
-                verticalArrangement = Arrangement.SpaceEvenly,
+                verticalArrangement = Arrangement.spacedBy(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Alpha", style = MaterialTheme.typography.subtitle2)
+                MenuItems("Featured")
+                MenuItems("Apartment")
+                MenuItems("Accessories")
+                MenuItems("Shoes")
+                MenuItems("Tops")
+                MenuItems("Bottoms")
+                MenuItems("Dresses")
+                Divider(
+                    modifier = Modifier
+                        .height(1.dp)
+                        .width(56.dp),
+                    color = MaterialTheme.colors.onBackground
+                )
+                MenuItems("My Account", modifier = Modifier.alpha(0.4f))
             }
         }
+    )
+}
+
+@Composable
+fun MenuItems(text: String = "Menu Item", modifier: Modifier = Modifier) {
+    Text(
+        modifier = modifier,
+        text = text.uppercase(), style = MaterialTheme.typography.subtitle1
     )
 }
 
@@ -94,7 +115,8 @@ private fun TopAppBar(
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
                     stringResource(id = R.string.app_name).uppercase(),
-                    style = MaterialTheme.typography.subtitle1
+                    style = MaterialTheme.typography.subtitle1,
+                    fontSize = 17.sp
                 )
             }
         },
@@ -109,10 +131,9 @@ private fun TopAppBar(
         })
 }
 
-
 @ExperimentalMaterialApi
-@Preview
 @Composable
+@DevicePreviews
 fun BackDropTest() {
     ShrineTheme {
         BackDrop()
@@ -121,7 +142,7 @@ fun BackDropTest() {
 
 
 @ExperimentalMaterialApi
-@Preview
+@DevicePreviews
 @Composable
 fun TopAppBarTest() {
     ShrineTheme {
